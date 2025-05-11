@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Akequ.Plugins;
 
 namespace Dang.API.Interfaces
 {
@@ -8,8 +7,8 @@ namespace Dang.API.Interfaces
         void LoadPlugin(string pluginPath);
         void UnloadPlugin(string pluginId);
         bool IsPluginLoaded(string pluginId);
-        IEnumerable<PluginInfo> GetLoadedPlugins();
-        void LoadConfig(string pluginId, string configPath);
+        IEnumerable<IPluginData> GetLoadedPlugins();
+        void LoadConfig(string pluginId, string configPath, IConfig config);
         Dictionary<string, string> GetDependencies(string pluginId);
     }
 }

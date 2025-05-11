@@ -1,4 +1,4 @@
-﻿namespace Dang.API.Interfaces
+﻿namespace Dang.Interfaces
 {
     public interface IConfig
     {

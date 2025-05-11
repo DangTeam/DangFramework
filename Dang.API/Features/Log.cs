@@ -5,59 +5,49 @@ namespace Dang.API.Features
 {
     public static class Log
     {
-        private static readonly string LogFile = Path.Combine(Path.Combine(Environment.CurrentDirectory, "Dang"), "Logs", "Dang.log");
+        private static readonly string LogFile = Path.Combine("Dang", "Logs", "Dang.log");
         private static LogLevel _logLevel = LogLevel.Info;
 
-        public enum LogLevel
-        {
-            Debug,
-            Info,
-            Warning,
-            Error
-        }
+        public enum LogLevel { Debug, Info, Warning, Error }
 
-        public static void SetLogLevel(LogLevel level)
-        {
-            _logLevel = level;
-        }
+        public static void SetLogLevel(LogLevel level) => _logLevel = level;
 
         public static void Debug(string message)
         {
             if (_logLevel <= LogLevel.Debug)
-                WriteLog("DEBUG", message);//, ConsoleColor.Gray);
+                Write("DEBUG", message);
         }
 
         public static void Info(string message)
         {
             if (_logLevel <= LogLevel.Info)
-                WriteLog("INFO", message);//, ConsoleColor.White);
+                Write("INFO", message);
         }
 
         public static void Warning(string message)
         {
             if (_logLevel <= LogLevel.Warning)
-                WriteLog("WARNING", message);//, ConsoleColor.Yellow);
+                Write("WARNING", message);
         }
 
         public static void Error(string message)
         {
             if (_logLevel <= LogLevel.Error)
-                WriteLog("ERROR", message);//, ConsoleColor.Red);
+                Write("ERROR", message);
         }
 
-        private static void WriteLog(string level, string message)//, ConsoleColor color)
+        private static void Write(string level, string message)
         {
             var logMessage = $"[{DateTime.Now:yyyy-MM-dd HH:mm:ss}] [{level}] {message}";
-            //Console.ForegroundColor = color;
             Console.WriteLine(logMessage);
-            //Console.ResetColor();
+
             try
             {
-                File.AppendAllText(LogFile, logMessage + "\n");
+                File.AppendAllText(LogFile, logMessage + Environment.NewLine);
             }
-            catch (Exception ex)
+            catch
             {
-                Console.WriteLine($"Ошибка записи в лог файл: {ex.Message}");
+                Console.WriteLine("Failed to write to log file.");
             }
         }
     }
